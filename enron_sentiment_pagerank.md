@@ -1,9 +1,3 @@
-
-TODO:
-update instructions on the visualisation.
-run pagerank on the broken graph
-
-
 <center>
 # Are Managers More Miserable?: Finding Sentiment Leaders in a Social Network.
 
@@ -21,7 +15,7 @@ The term 'social networks' is often considered synonymous with the prevelance of
     Social networks sites, in particular, are defined as web services where people can (1) construct a public or semipublic profile within a bounded system, (2) define a list of users with whom they establish a connection, and (3) view their list of connections and those made by the others within the system [13].
 
 ##### Sentiment Analysis
-
+// TODO just some history about sentiment analysis
 
 
 
@@ -33,17 +27,19 @@ have a complementary relationship in increasing the expanitory and predictive va
 
 ### Preliminaries
 ##### Definitions
-define what is sentiment.
-how we will be using sentiment.
-define the graph.
+// sentiment: assumed negative information means negative email
+// source
+// target.
+
 ##### Method Overview
 1. Given the communication content, source and target of the communition. Generate a quantitative measure of sentiment polarity with positive values depicting positive sentiment
 
 ### Sentiment Leader Algorithm
-
+pagerank definition but instead links are normalised sentiments, such that probability to send a negative email is just the number of negative emails. with a random surfer.
 
 ### Implementation
 ##### Enron corpus
+Using the public MySQL database[^mysql], the email bodies were classified using
 
 ### Concluisons
 This work can be used by organisations with a richer history to be develop insights in the organisation. Which individuals sentiments closely track company performance/price. Which employees have undergone a massive drop in incoming sentiment, these employees should
@@ -73,21 +69,8 @@ It would be interesting to see the change in outgoing behaviour from incoming be
 
 The majority of this work was funded by BVN Architecture 255 Pitt St, Sydney NSW 2000.
 
-<!--How to cite stuff-->
-What is this? Yet *another* citation?[^fn3]
-
-Some text in which I cite an author.[^fn1]
-
-More text. Another citation.[^fn2]
 
 [^smt]: http://www.socialmediatoday.com/social-business/2015-04-09/social-vanity-metrics-top-4-worst-offenders
 [^pang]: Pang B., Lee L. Opinion mining and sentiment analysis. Found. Trends Inform. Retr. 2008;2(1–2):1–135.
 [^tan]: Tan C., Lee L., Tang J., Jiang L., Zhou M., Li P. User-level sentiment analysis incorporating social networks. In: Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining. ACM; 2011:1397–1405.
-
-[^fn1]: So Chris Krycho, "Not Exactly a Millennium," chriskrycho.com, July 22,
-    2015, http://www.chriskrycho.com/2015/not-exactly-a-millennium.html
-    (accessed July 25, 2015), ¶6.
-
-[^fn2]: Contra Krycho, ¶15, who has everything *quite* wrong.
-
-[^fn3]: Contra Krycho, ¶17.
+[^mysql]: http://www.ahschulz.de/enron-email-data/

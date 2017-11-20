@@ -1,14 +1,14 @@
 <center>
 # Are Managers More Miserable? -- Measuring stress in a social network with StressRank.
 
-**Ishaan Varshney**  
-University of New South Wales  
-Sydney, NSW 2052, Australia  
+**Ishaan Varshney**
+University of New South Wales
+Sydney, NSW 2052, Australia
 </center>
 
 ### Abstract
-Identifying individuals who are stressed or disatisfied in a network could be of great interest as it could reduce attrition and increase organisational cohesion, putting aside the obvious merits in increasing wellbeing of people.
-However, current work has primarily focused on generic measurements (e.g. degree, closeness centrality) which does not take advantage of context and the emotional tone of communication in the network. In this paper, by leveraging advancements in sentiment polarity prediction of natural language processing systems, we propose a new algorithm: StressRank. StressRank aims to rank individuals in terms of importance with the flow of negative email. Importance of nodes in regards to positive email has been dubbed YesRank. This algorithm aims to capture that if one receives an email from an individual who themselves have high polarity in a particular direction, then an email from them would contain that same polarity. This algorithm was attempted against the Enron email corpus to test the hypothesis whether emails to executives' generally contain more positive emails or negative. Priminary analysis shows that executives' on average receive more positive emails than their subordinates. However, more research should be undertaken to incorporate both sentiments in one algorithm. As part of this research a visualisation tool was also developed for stakeholders to explore their social network ([link](https://ishaan.xyz/enron/index.html)).
+Identifying individuals who are stressed or dissatisfied in a network could be of great interest as it could reduce attrition and increase organisational cohesion, putting aside the obvious merits in increasing wellbeing of people.
+However, current work has primarily focused on generic measurements (e.g. degree, closeness centrality) which does not take advantage of context and the emotional tone of communication in the network. In this paper, by leveraging advancements in sentiment polarity prediction of natural language processing systems, we propose a new algorithm: StressRank. StressRank aims to rank individuals in terms of importance with the flow of negative email. Importance of nodes in regards to positive email has been dubbed YesRank. This algorithm aims to capture that if one receives an email from an individual who themselves have high polarity in a particular direction, then an email from them would contain that same polarity. This algorithm was attempted against the Enron email corpus to test the hypothesis whether emails to executives' generally contain more positive emails or negative. Preliminary analysis shows that executives' on average receive more positive emails than their subordinates. However, more research should be undertaken to incorporate both sentiments in one algorithm. As part of this research a visualisation tool was also developed for stakeholders to explore their social network ([link](https://ishaan.xyz/enron/index.html)).
 
 ### Introduction
 ##### Social networks
@@ -33,21 +33,21 @@ In the scope of this paper, a social network is defined by the communication flo
 
     $$
      S_{ij} = \sum_tf(c_{ijt})
-    $$ 
-     
+    $$
+
     Each entry in the matrix is cumulative sentiment over all messages $$t$$ sent from user $$i$$ to $$j$$.
-1. If a user is 'dangling', that is they have only recieved emails and did not sent any. They distribute their positivity or negativity evenly among all other users.
-2. Normalise the matrix to ensure it is row stocastic.
+1. If a user is 'dangling', that is they have only received emails and did not sent any. They distribute their positivity or negativity evenly among all other users.
+2. Normalise the matrix to ensure it is row stochastic.
 1. Run the PageRank algorithm with $$\alpha = \dfrac{7}{8}$$.
 
 ##### YesRank Algorithm
-We follow the same steps as above except in step 1 we only analyise **positive** sentiment.
+We follow the same steps as above except in step 1 we only analyse **positive** sentiment.
 
 ### Implementation
 #### Enron corpus
 TODO add a bit about which subset of the data was used since it was so huge and what assumptions does that imply.
 
-The enron corpus is often used the canonical example for exploring new methods in SNA. Using the public MySQL database[^mysql], the email bodies were classified using OpenAI's sentiment neuron[^sentneu] which has set a new benchmark on the Stanford SST with minimal training[^OAIPaper].
+The Enron corpus is often used the canonical example for exploring new methods in SNA. Using the public MySQL database[^mysql], the email bodies were classified using OpenAI's sentiment neuron[^sentneu] which has set a new benchmark on the Stanford SST with minimal training[^OAIPaper].
 
 ##### StressRank Results
 |Person|Title| StressRank|
@@ -72,7 +72,7 @@ The enron corpus is often used the canonical example for exploring new methods i
 |richard.shapiro@enron.com | Vice President |0.066082559377388772|
 |chris.germany@enron.com   | Employee       |0.035021913277732013|
 
-Preliminary findings how that typically executive management have higher YesRank than employees. The same seems to be true for StressRank. However, assumptions could completely be wrong and should be applied repeated with a more complete social network. 
+Preliminary findings show that typically executive management have higher StressRank than employees. However, the same seems to be true for YesRank. The paper offers a couple of reason why we are seeing such a result. Firstly analysing positive and negative messages in separate graph seem to be a suboptimal approach. We need to be able to work with both polarities and obtain a global rank over them. Another factor is the data augmentation had lead to selection bias where most emails in this analysis are of a certain clique thus the importance of both polarities bounce off each other.
 
 ### Conclusions
 This work can be used by organisations with a richer history to be develop insights in the organisation. Which individuals sentiments closely track company performance/price. Which employees have undergone a massive drop in incoming sentiment, these employees.
@@ -87,8 +87,8 @@ The other side of the coin could look at developing a model to use a kind of a r
 
 Yet another avenue could just be using the tool that comes
 
-Perhaps some of these changes are to look at temporality.  In aggregate people sentiment changes and thus it averages out therefore
-we do not see the any dicernable patterns in this paper.
+Perhaps some of these changes are to look at temporarily.  In aggregate people sentiment changes and thus it averages out therefore
+we do not see the any discernible patterns in this paper.
 
 Conduct on clean and perhaps better labeled dataset
 perform with cleaner measures of sentiment.
@@ -153,7 +153,7 @@ rank_vec = rank_vec / rank_vec.sum()
 scores = [(nodes[i],roles[i], v) for i, v in enumerate(rank_vec)]
 for i in sorted(scores, key=lambda x: x[2], reverse=True):
     print(i)
-    
+
 ```
 
 
@@ -172,4 +172,4 @@ for i in sorted(scores, key=lambda x: x[2], reverse=True):
 [^book]: Pozzi, Federico Alberto, et al. Sentiment Analysis in Social Networks, Elsevier Science, 2016. ProQuest Ebook Central, https://ebookcentral-proquest-com.wwwproxy1.library.unsw.edu.au/lib/unsw/detail.action?docID=4713944.
 [^sentneu]: https://github.com/openai/generating-reviews-discovering-sentiment
 [^OAIPaper]: https://arxiv.org/pdf/1704.01444.pdf
-[^def]: Ellison N.B. Social network sites: definition, history, and scholarship. J. Comput. Mediat. Commun. 2007;13(1):210–230.  
+[^def]: Ellison N.B. Social network sites: definition, history, and scholarship. J. Comput. Mediat. Commun. 2007;13(1):210–230.

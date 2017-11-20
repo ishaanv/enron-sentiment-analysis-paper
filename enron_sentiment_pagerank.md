@@ -3,10 +3,11 @@ TODO put results in table.
 <center>
 # Are Managers More Miserable? -- Finding Sentiment Leaders in a Social Network.
 
-**Ishaan Varshney**  
-University of New South Wales  
-Sydney, NSW 2052, Australia  
+**Ishaan Varshney**
+University of New South Wales
+Sydney, NSW 2052, Australia
 </center>
+
 ### Abstract
 Identifying opinion leaders in a social networks has often been of interest to researchers and industry as they can work with such leaders for information dissipation marketing, extremist ideology etc. However, current work has primarily focused on generic measurements (e.g. degree, closeness centrality) which does not take advantage of context as well as the emotional tone of communication in the network. In this paper, by leveraging advancements in sentiment polarity of NLP systems, we propose a new algorithm: StressRank. StressRank aims to rank individuals for each polarity of sentiment of their incoming messages. The idea being that if you receive an email from an individual who themselves have high polarity in a particular direction, then an email from them would contain that same polarity. w This algorithm was attempted against the Enron email corpus. Given the strong assumptions this paper takes, it was found that Managers on average receive more positive emails than their subordinates. As part of this research a visualisation tool was also developed for stakeholders to explore their social network.
 
@@ -17,7 +18,7 @@ The term _social networks_ is often considered synonymous with the prevalence of
     Social networks sites, in particular, are defined as web services where people can (1) construct a public or semipublic profile within a bounded system, (2) define a list of users with whom they establish a connection, and (3) view their list of connections and those made by the others within the system [13].
 
 ##### Sentiment Analysis
-// TODO just some history about sentiment analysis
+// TODO just some history about sentiment analysis  air
 Sentiment analysis (SA) has been one of the most active research areas in natural language processing (NLP)[^lui]. This is especially true given the rise in popularity and success of artificial neural networks in such tasks. The aim of sentiment analysis is to "define automatic tools able to extract subjective information in order to create structured and actionable knowledge."[^book]. Polarity classification is a branch of SA which is concerned with extracting positive or negative sentiment from text. Long short term memory (LSTM) networks have excelled[^OAIPaper] in the NLP domain and many such trained networks have been open sourced to the public such as the sentiment neuron by OpenAI[^sentneu].
 
 
@@ -37,46 +38,67 @@ In the scope of this paper, social network is defined by the communication flows
 
     $$
      S_{ij} = \sum_tf(c_{ijt})
-    $$ 
-     
+    $$
+
     Each entry in the matrix is cumulative sentiment over all messages sent from user i to j.
-1. Run the PageRank algorithm
+1. Run the PageRank algorithm.
 
 ### Sentiment Leader Algorithm
-Generally talk about the modification done to the data to make it fit the pagerank paradigm and what does it signify
+Generally talk about the modification done to the data to make it fit the PageRank paradigm and what does it signify.
 
 ### Implementation
 #### Enron corpus
-Using the public MySQL database[^mysql], the email bodies were classified using
+The enron corpus is often used the canonical example for exploring new methods in SNA. The Enron corpus Using the public MySQL database[^mysql], the email bodies were classified using OpenAi's sentiment neuron which has set a new benchmark on the Stanford SST with minimal training[^sent].
 
-##### Results
+##### YesRank Results
+Preliminary findings how that typically executive management have higher YesRank than employees. The same seems to be true for StressRank. However, assumptions could completely be wrong and should be applied repeated with a more complete social network.
+
+|Person|Title| YesRank|
+| ---------------------------|:-----------------:| -----:|
+|john.lavorato@enron.com   | CEO            | 0.13227112485640746|
+|louise.kitchen@enron.com  | President      |0.095584053443868972|
+|david.delainey@enron.com  | CEO            | 0.079763971159627606|
+|jeff.dasovich@enron.com   | Employee       |0.074223618879691838|
+|richard.shapiro@enron.com | Vice President |0.066082559377388772|
+|chris.germany@enron.com   | Employee       |0.035021913277732013|
+
+##### StressRank Results
+|Person|Title| StressRank|
+| ---------------------------|:-----------------:| -----:|
+|john.lavorato@enron.com     | CEO               |0.094792432846432004|
+|louise.kitchen@enron.com    | President         |0.088307953845699255|
+|chris.germany@enron.com     | Employee          |0.079346235238653501|
+|jeff.dasovich@enron.com     | Employee          |0.058376755251766797|
+|drew.fossum@enron.com       | Vice President    |0.04579269766449149|
+|kay.mann@enron.com          | Employee          |0.043860806139328697|
 
 
-### Concluisons
+### Conclusions
 This work can be used by organisations with a richer history to be develop insights in the organisation. Which individuals sentiments closely track company performance/price. Which employees have undergone a massive drop in incoming sentiment, these employees should
-
 
 ### Shortcomings
 Looking are better threshold for polarity of sentiment classification.
 
 ### Further Work
-As social netowrks become more location agnostic, some form of visualisation of company structure will become increasingly important. Another issue that arises with such remote work is being able to make proactive interventions regarding mental health of employees as it is significantly harder to guage emotional stress over written communication.
+As social networks become more location agnostic, some form of visualisation of company structure will become increasingly important. Another issue that arises with such remote work is being able to make proactive interventions regarding mental health of employees as it is significantly harder to gauge emotional stress over written communication.
 
-The other side of the coin could look at develpoing a model to use a kind of a recommender system for finding good fits in the cliques of the social network.
+The other side of the coin could look at developing a model to use a kind of a recommender system for finding good fits in the cliques of the social network.
 
 Yet another avenue could just be using the tool that comes
 
-Perhaps some of these changes are to look at temporality.  In aggregate people sentiment changes and thus it averages out therefore
-we do not see the any dicernable patterns in this paper.
+Perhaps some of these changes are to look at temporarily.  In aggregate people sentiment changes and thus it averages out therefore
+we do not see the any discernible patterns in this paper.
 
 Conduct on clean and perhaps better labeled dataset
 perform with cleaner measures of sentiment.
 
 Obtaining roles for more of the enron data would be good. A lot of conclusions are contingent on this assumption.
 
-It would be interesting to see the change in outgoing behaviour from incoming behaviour or vice-versa. Would require a completely different algorithm
+It would be interesting to see the change in outgoing behaviour from incoming behaviour or vice-versa. Would require a completely different algorithm.
 
-### Acknoledgements
+Ethics of doing this kind of research. All of this should be done with transparency.
+
+### Acknowledgments
 
 The majority of this work was funded by BVN Architecture 255 Pitt St, Sydney NSW 2000.
 

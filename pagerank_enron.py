@@ -5,16 +5,19 @@ from tqdm import tqdm
 
 
 def sending_sentiment_adj_mat(mat, df, source_field='from', target_field='to'):
-    #     set_trace()
     for index, row in tqdm(df.iterrows()):
-        mat[nodes.index(getattr(row, source_field))][nodes.index(
-            getattr(row, target_field))] += row.sentiment
+        source_index = nodes.index(getattr(row, source_field))
+        target_index = nodes.index(getattr(row, target_field))
+        roles[source_index] = getattr(row, 'from_title')
+        roles[target_index] = getattr(row, 'to_title')
+        mat[source_index][target_index] += row.sentiment
 
 
 enron_links = pd.read_csv('data/enron_links_with_sentiment_roles.csv')
-enron_links = enron_links[enron_links.sentiment < 0] # get positive sentiment
+enron_links = enron_links[enron_links.sentiment > 0] # get positive sentiment
 nodes = pd.unique(enron_links[['from', 'to']].values.ravel('K')).tolist()
 n = len(nodes)
+roles = [None] * n
 mat = np.zeros([n,n])
 sending_sentiment_adj_mat(mat, enron_links)
 # filter out the negatiave links
@@ -27,8 +30,9 @@ G = alpha * mat + (1 - alpha) * mat2
 w, v = pr.LA.eig(G.T)
 rank_vec = v[:, np.argmax(w)]
 rank_vec = rank_vec / rank_vec.sum()
-scores = [(nodes[i], v) for i, v in enumerate(rank_vec)]
-print(sorted(scores, key=lambda x: x[1], reverse=True))
-print(w[0])
+scores = [(nodes[i],roles[i], v) for i, v in enumerate(rank_vec)]
+for i in sorted(scores, key=lambda x: x[2], reverse=True):
+    print(i)
+# print(w[0])
 
 # import pdb; pdb.set_trace()

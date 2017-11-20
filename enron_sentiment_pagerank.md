@@ -1,18 +1,18 @@
 <center>
-# Are Managers More Miserable? -- Measuring stress in a social network with StressRank.
+# Are Executives More Miserable? -- Measuring stress in a social network with StressRank.
 
-**Ishaan Varshney**
-University of New South Wales
+**Ishaan Varshney**  
+University of New South Wales  
 Sydney, NSW 2052, Australia
 </center>
 
 ### Abstract
-Identifying individuals who are stressed or dissatisfied in a network could be of great interest as it could reduce attrition and increase organisational cohesion, putting aside the obvious merits in increasing wellbeing of people.
-However, current work has primarily focused on generic measurements (e.g. degree, closeness centrality) which does not take advantage of context and the emotional tone of communication in the network. In this paper, by leveraging advancements in sentiment polarity prediction of natural language processing systems, we propose a new algorithm: StressRank. StressRank aims to rank individuals in terms of importance with the flow of negative email. Importance of nodes in regards to positive email has been dubbed YesRank. This algorithm aims to capture that if one receives an email from an individual who themselves have high polarity in a particular direction, then an email from them would contain that same polarity. This algorithm was attempted against the Enron email corpus to test the hypothesis whether emails to executives' generally contain more positive emails or negative. Preliminary analysis shows that executives' on average receive more positive emails than their subordinates. However, more research should be undertaken to incorporate both sentiments in one algorithm. As part of this research a visualisation tool was also developed for stakeholders to explore their social network ([link](https://ishaan.xyz/enron/index.html)).
+Identifying individuals who are stressed or dissatisfied in a network such that this can ameliorated is of great interest to corporations. Doing so could reduce attrition and increase organisational cohesion, putting aside the obvious merits in increasing wellbeing of people.
+However, current research has primarily focused on generic measurements (e.g. degree, closeness centrality) which does not take advantage of context and the emotional tone of communication in the network. In this paper, we leverage advancements in sentiment polarity prediction of natural language processing systems, we propose a new algorithm: StressRank. StressRank aims to rank individuals regarding stress caused by the flow of negative emails. Ranking in happiness regards to positive (or sycophantic) emails has been dubbed YesRank (after Yes-men). This algorithm aims to capture that if one receives an email from an individual who themselves have high polarity in a particular direction, then an email from them would contain that same polarity. This algorithm was implemented on the Enron email corpus to test the hypothesis whether emails to executives generally contain more positive or negative senitments. Preliminary analysis shows that executives' on average receive more positive emails than their subordinates. However, more research should be undertaken to incorporate both sentiments in one algorithm. As part of this research a visualisation tool was also developed for stakeholders to explore these metrics of their social network ([link](https://ishaan.xyz/enron/index.html)).
 
 ### Introduction
 ##### Social networks
-Online social networks can be defined as platforms where users can communication[^def]. Social networks can be distributed and private such as the emailing system at at a corporation or more public like sites such as Facebook and Twitter. The ability to develop and maintain large and complex social networks of H. sapiens of the genus Homo is often considered the reason for their success from an evolutionary perspective. As more and more communication is mediated with the aid of technology, researchers have been able to develop accurate and useful models of the topology of social networks along with features such important nodes. This field of study is called Social Network Analysis (SNA). The most commonly used SNA methods are ones that provide some information about the structure of the graph. For example, closeness centrality provides an indication of which nodes are most often on the shortest path between nodes. Another example is degree centrality, which provides the number of incoming or outgoing connections a node may have. However, these measures are often called vanity metrics[^smt] as they do not contextualise the data and may lead to spurious insights. In an email network, one might just look at out-degree to determine the importance of the node however it might just be an bot whose messages people in the network mostly ignore. Thus, the need for other methods of analysis of SAs have been sought after. The most popular of such methods is by leveraging breakthroughs in the field of sentiment analysis (SA)[^pang].
+Online social networks can be defined as platforms where users can communicate with one another[^def]. Social networks can be distributed and without barriers (spam filters aside) such as the email systems at corporations, or they can be more private and centralised like Facebook. As more and more communication is mediated with the use of technology, researchers have had increased access to such data and thus have been able to develop more accurate and useful models of social networks. This field of study is called Social Network Analysis (SNA). The most commonly used SNA methods are ones that provide some information about the structure of the graph. For example, closeness centrality provides an indication of which nodes are most often on the shortest path between nodes. Another example is degree centrality, which provides the number of incoming or outgoing connections a node may have. However, these measures are often called vanity metrics[^smt] as they do not contextualise the data and may lead to spurious insights. For example, in an email network, one might just look at out-degree to determine the importance of the node however it might just be an bot whose messages people in the network mostly ignore. Thus, the need for other methods of analysis of social networks have been sought after. The most popular of such methods is by leveraging breakthroughs in the field of sentiment analysis (SA)[^pang].
 
 ##### Sentiment Analysis
 Sentiment analysis (SA) has been one of the most active research areas in natural language processing (NLP)[^lui]. This is especially true given the recent success of artificial neural networks in such tasks. The aim of sentiment analysis is to "define automatic tools able to extract subjective information in order to create structured and actionable knowledge."[^book]. Polarity classification is a branch of SA which is concerned with extracting positive or negative sentiment from text. Long short term memory (LSTM) networks have excelled[^OAIPaper] in the NLP domain and many such trained networks have been open sourced to the public such as the sentiment neuron by OpenAI[^sentneu].
@@ -24,7 +24,7 @@ Current research has shown that SA and SNA have a complementary relationship in 
 
 ### Preliminaries
 ##### Definitions
-In the scope of this paper, a social network is defined by the communication flows between individuals. Each flow has a source, a target and some message content $$c$$. To calculate the sentiment we have a model _f_ which takes the content of the message and output as quantitative rating with 0 depicting neural sentiment, positive values depicting positive sentiment and negative values for negative sentiment.
+In the scope of this paper, a social network is defined by the communication flows between individuals. Each flow has a source, a target and some message content $$c$$. To calculate the sentiment we have a model _f_ which takes the content of the message and outputs as quantitative rating of 0, depicting neural sentiment; positive values depicting positive sentiment; and negative values for negative sentiment.
 
 ##### StressRank Algorithm
 1. Generate a quantitative measure of sentiment polarity with **negative** values depicting negative sentiment
@@ -47,7 +47,8 @@ We follow the same steps as above except in step 1 we only analyse **positive** 
 #### Enron corpus
 TODO add a bit about which subset of the data was used since it was so huge and what assumptions does that imply.
 
-The Enron corpus is often used the canonical example for exploring new methods in SNA. Using the public MySQL database[^mysql], the email bodies were classified using OpenAI's sentiment neuron[^sentneu] which has set a new benchmark on the Stanford SST with minimal training[^OAIPaper].
+The Enron corpus is often used the canonical example for exploring new methods in SNA. Using the public MySQL database[^mysql], the email bodies were classified using OpenAI's sentiment neuron[^123] which has set a new benchmark on the Stanford SST with minimal training[^321]. In order to test whether executives receive more negative emails than the rest, we had to limit our sample to 20,350 messages of the potential 107,429 emails where the roles of receipient was known. Whether this is a representative sample of emails was untested and is an assumption of this paper.
+
 
 ##### StressRank Results
 |Person|Title| StressRank|
@@ -72,32 +73,22 @@ The Enron corpus is often used the canonical example for exploring new methods i
 |richard.shapiro@enron.com | Vice President |0.066082559377388772|
 |chris.germany@enron.com   | Employee       |0.035021913277732013|
 
-Preliminary findings show that typically executive management have higher StressRank than employees. However, the same seems to be true for YesRank. The paper offers a couple of reason why we are seeing such a result. Firstly analysing positive and negative messages in separate graph seem to be a suboptimal approach. We need to be able to work with both polarities and obtain a global rank over them. Another factor is the data augmentation had lead to selection bias where most emails in this analysis are of a certain clique thus the importance of both polarities bounce off each other.
+Preliminary findings show that typically executive management have higher StressRanks than employees. However, the same seems to be true for YesRank. The paper offers a couple of reason why we are seeing such a result. Firstly, analysing positive and negative messages in separate graph seems to be a suboptimal approach. We need to be able to work with both polarities and obtain a global rank over them. Another factor is the data augmentation had lead to selection bias where most emails in this analysis are of a certain clique thus the importance of both polarities bounce off each other.
 
 ### Conclusions
-This work can be used by organisations with a richer history to be develop insights in the organisation. Which individuals sentiments closely track company performance/price. Which employees have undergone a massive drop in incoming sentiment, these employees.
-
+As the prevalance of remote work rises, teams are being becoming increasingly distributed and fragmented. Methods of detecting fatigue, stress and depression will become increasingly important for organisation as these cues are detected implicitly in face-to-face communication. The methodology, algorithm and results show that there is potential in determining some metric of stress within the confines of a social network that can translate to the real-world. Futher work should be undertaken in better detecting sentiments of emails and methods of combining that with organisational networks. As a final note, it should be mentioned that there exist many ethical issues in conducting such research. It would be advised to conduct all such research with utmost transparancy and consent.
 
 ### Further Work
-Looking are better threshold for polarity of sentiment classification. Needs some sort of human classification.
 
-As social networks become more location agnostic, some form of visualisation of company structure will become increasingly important. Another issue that arises with such remote work is being able to make proactive interventions regarding mental health of employees as it is significantly harder to gauge emotional stress over written communication.
+- An extention of the setup could be an organisational recommender system for finding good fits for teams using collaborative filtering. I.e "The predicted enemy of my enemy is my predicted friend".
 
-The other side of the coin could look at developing a model to use a kind of a recommender system for finding good fits in the cliques of the social network.
+- Perhaps more meaningful insights exist in exploring the sentiement over time. In aggregate people sentiment changes and thus it averages out therefore
+we do not see the any discernible patterns in this paper. It is in the changes per person where we might notice some interesting pattern.
 
-Yet another avenue could just be using the tool that comes
-
-Perhaps some of these changes are to look at temporarily.  In aggregate people sentiment changes and thus it averages out therefore
-we do not see the any discernible patterns in this paper.
-
-Conduct on clean and perhaps better labeled dataset
+- Conducting this task on clean and perhaps better labeled dataset
 perform with cleaner measures of sentiment.
 
-Obtaining roles for more of the enron data would be good. A lot of conclusions are contingent on this assumption.
-
-It would be interesting to see the change in outgoing behaviour from incoming behaviour or vice-versa. Would require a completely different algorithm.
-
-Ethics of doing this kind of research. All of this should be done with transparency.
+- It would be interesting to see the change in outgoing behaviour from incoming behaviour or vice-versa. Would require a completely different algorithm.
 
 ### Appendix
 
@@ -170,6 +161,6 @@ for i in sorted(scores, key=lambda x: x[2], reverse=True):
 [^mysql]: http://www.ahschulz.de/enron-email-data/
 [^lui]: Liu B. Sentiment Analysis and Opinion Mining. San Rafael, CA: Morgan & Claypool; 2012.
 [^book]: Pozzi, Federico Alberto, et al. Sentiment Analysis in Social Networks, Elsevier Science, 2016. ProQuest Ebook Central, https://ebookcentral-proquest-com.wwwproxy1.library.unsw.edu.au/lib/unsw/detail.action?docID=4713944.
-[^sentneu]: https://github.com/openai/generating-reviews-discovering-sentiment
-[^OAIPaper]: https://arxiv.org/pdf/1704.01444.pdf
+[^123]: https://github.com/openai/generating-reviews-discovering-sentiment
+[^321]: https://arxiv.org/pdf/1704.01444.pdf
 [^def]: Ellison N.B. Social network sites: definition, history, and scholarship. J. Comput. Mediat. Commun. 2007;13(1):210–230.
